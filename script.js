@@ -110,9 +110,24 @@ function animate() {
         projectile.update()
     })
 
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy, enemyIndex) => {
         enemy.update()
+
+        projectiles.forEach((projectile, projectileIndex) => {
+            const dist = Math.hypot(projectile.x - enemy.x,
+              projectile.y - enemy.y)
+     
+              setTimeout(() => {
+                if(dist - enemy.radius - projectile.radius < -5){
+                    enemies.splice(enemyIndex, 1);
+                    projectiles.splice(projectileIndex, 1);
+         }
+              }, 0)
+              
+         })
     })
+
+    
 }
 
 addEventListener('click', (event) => {
